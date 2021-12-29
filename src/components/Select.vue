@@ -24,7 +24,7 @@
             v-for="item in list.items"
             :key="item.id"
           >
-            <Item
+            <ControlItem
               :listId = "list.id"
               :value="item"
               @selectItem="selectItem"
@@ -42,7 +42,7 @@
 import { mapMutations } from "vuex";
 import ClickOutside from "vue-click-outside";
 import Icon from "./Icon.vue";
-import Item from "./Item.vue";
+import ControlItem from "./ControlItem.vue";
 
 export default {
   name: "Dropdown",
@@ -62,7 +62,7 @@ export default {
   },
   components: {
     Icon,
-    Item
+    ControlItem
   },
   computed: {
     isAllSelected: {

@@ -1,11 +1,11 @@
 <template>
   <div class="column-wrapper">
-    <ul v-if="lists && lists.length">
+    <ul v-if="lists && lists.length" class="list">
       <li
         v-for="list in lists"
         :key="list.id"
       >
-        <Select :list="list"/>
+        <ViewItem :list="list"/>
       </li>
     </ul>
   </div>
@@ -13,12 +13,12 @@
 
 <script>
 import { mapState } from "vuex";
-import Select from "./Select";
+import ViewItem from "./ViewItem.vue";
 
 export default {
-  name: "ControlColumn",
+  name: "ViewColumn",
   components: {
-    Select
+    ViewItem
   },
   computed: {
     ...mapState('data', ['lists']),
@@ -32,4 +32,11 @@ export default {
   border: 1px solid #000;
   padding: 20px;
 }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 </style>

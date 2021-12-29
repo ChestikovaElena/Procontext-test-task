@@ -29,10 +29,10 @@
 
 <script>
 export default {
-  name: "Item",
+  name: "ControlItem",
   props: {
     listId: {
-      type: Number,
+      type: String,
       required: true
     },
     value: {

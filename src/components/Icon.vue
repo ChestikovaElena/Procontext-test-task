@@ -8,7 +8,7 @@
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       class="icon"
-      v-html="types[iconType]"
+      v-html="types[iconType]" fill="none"
     >
     </svg>
   </div>
@@ -28,7 +28,7 @@ export default {
       check:
         `<path d="M3 12L9 18L21 6" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />`,
       arrow:
-        `<path d="M4 8L12 16L20 8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />`,
+        `<path d="M8 4L16 12L8 20" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>`,
     }
   })
 }
@@ -36,12 +36,13 @@ export default {
 
 <style scoped>
 .icon__wrapper {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .icon {
   fill: inherit;
 }

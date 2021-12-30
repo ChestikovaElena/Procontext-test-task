@@ -6,138 +6,20 @@ import {
   SELECT_ALL_ITEMS_IN_LIST,
   DECREASE_COUNT_OF_ITEM,
 } from "./mutations.js";
+import initialLists from "../assets/lists";
 
 const state = {
-  lists: [
-    {
-      id: "1",
-      label: "List1",
-      items: [
-        {
-          id: "11",
-          label: "Item1",
-          count: 5,
-          color: "#000000",
-          checked: false,
-        },
-        {
-          id: "12",
-          label: "Item2",
-          count: 8,
-          color: "#1dc6c9",
-          checked: false,
-        },
-        {
-          id: "13",
-          label: "Item3",
-          count: 3,
-          color: "#f20707",
-          checked: false,
-        },
-        {
-          id: "14",
-          label: "Item4",
-          count: 30,
-          color: "#159d1e",
-          checked: false,
-        },
-      ],
-    },
-    {
-      id: "2",
-      label: "List2",
-      items: [
-        {
-          id: "21",
-          label: "Item2",
-          count: 12,
-          color: "#000000",
-          checked: false,
-        },
-        {
-          id: "22",
-          label: "Item2",
-          count: 8,
-          color: "#1dc6c9",
-          checked: false,
-        },
-        {
-          id: "23",
-          label: "Item3",
-          count: 6,
-          color: "#f20707",
-          checked: false,
-        },
-        {
-          id: "24",
-          label: "Item4",
-          count: 3,
-          color: "#159d1e",
-          checked: false,
-        },
-        {
-          id: "25",
-          label: "Item5",
-          count: 7,
-          color: "#159d1e",
-          checked: false,
-        },
-      ],
-    },
-    {
-      id: "3",
-      label: "List3",
-      items: [
-        {
-          id: "31",
-          label: "Item1",
-          count: 32,
-          color: "#000000",
-          checked: false,
-        },
-        {
-          id: "32",
-          label: "Item2",
-          count: 8,
-          color: "#1dc6c9",
-          checked: false,
-        },
-        {
-          id: "33",
-          label: "Item3",
-          count: 6,
-          color: "#f20707",
-          checked: false,
-        },
-        {
-          id: "34",
-          label: "Item4",
-          count: 3,
-          color: "#159d1e",
-          checked: false,
-        },
-        {
-          id: "35",
-          label: "Item5",
-          count: 7,
-          color: "#159d1e",
-          checked: false,
-        },
-        {
-          id: "36",
-          label: "Item6",
-          count: 2,
-          color: "#159d1e",
-          checked: false,
-        },
-      ],
-    },
-    {
-      id: "4",
-      label: "List4",
-      items: [],
-    },
-  ],
+  lists: initialLists,
+};
+
+const getters = {
+  getRenderedItems: (state) => (listId) => {
+    const currentList = state.lists.findIndex((list) => list.id === listId);
+
+    return state.lists[currentList].items.filter(
+      (item) => item.checked && item.count > 0
+    );
+  },
 };
 
 const mutations = {
@@ -220,5 +102,6 @@ const mutations = {
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
 };

@@ -1,27 +1,29 @@
 <template>
-  <div class="wrapper">
-    <div>
+  <div class="item-wrapper">
+    <label class="check">
       <input
         type="checkbox"
         id="value.id"
         @click="clickHandler"
         v-model="value.checked"
+        class="check-input"
       />
-      <label for="value.id">
-        {{ value.label }}
-      </label>
-    </div>
-    <div>
+      <span class="check-box"></span>
+      {{ value.label }}
+    </label>
+    <div class="item-inputs">
       <input
         type="number"
         min=0
-        :value="count"
+        :value="value.count"
         @change="changeCountHandler"
+        class="input-number"
       />
       <input
         type="color"
-        :value="color"
+        :value="value.color"
         @change="changeColorHandler"
+        class="input-color"
       />
     </div>
   </div>
@@ -40,34 +42,55 @@ export default {
       required: true,
     }
   },
-  data() {
-    return {
-      count: this.value.count,
-      color: this.value.color,
-    }
-  },
   methods: {
     clickHandler() {
       this.$emit('selectItem', { listId: this.listId, itemId: this.value.id });
     },
     changeCountHandler(e) {
       const newCount = e.target.value;
-      this.count = newCount;
-      this.$emit('changeCount', { listId: this.listId, itemId: this.value.id, count: +this.count })
+      
+      this.$emit('changeCount', { listId: this.listId, itemId: this.value.id, count: +newCount })
     },
     changeColorHandler(e) {
       const newColor = e.target.value;
-      this.color = newColor;
-      this.$emit('changeColor', { listId: this.listId, itemId: this.value.id, color: this.color })
+      
+      this.$emit('changeColor', { listId: this.listId, itemId: this.value.id, color: newColor })
     }
   },
 }
 </script>
 
 <style scoped>
-.wrapper {
+.item-wrapper {
   width: 100%;
   display: flex;
+  align-items: center;
+  gap: 30%;
+}
+
+.item-inputs {
+  display: flex;
+}
+
+.input-number {
+  width: 40px;
+  border: none;
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-color,
+.input-color::-webkit-color-swatch-wrapper {
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-color: transparent;
+  padding: 0;
 }
 
 </style>

@@ -1,20 +1,18 @@
 <template>
   <div class="item-wrapper">
     <h2 class="item-title">{{ list.label }}</h2>
-    <ul v-if="list.items && list.items.length" class="item-list">
+    <ul v-if="getRenderedItems(list.id) && getRenderedItems(list.id).length" class="item-list">
       <li
-        v-for="item in list.items"
+        v-for="item in getRenderedItems(list.id)"
         :key="item.id"
         class="item"
       >
-        <div v-if="item.checked && item.count > 0">
-          <ViewRowOfSquare
-            :count="item.count"
-            :color="item.color"
-            :itemId="item.id"
-            :listId="list.id"
-          />
-        </div>
+        <ViewRowOfSquare
+          :count="item.count"
+          :color="item.color"
+          :itemId="item.id"
+          :listId="list.id"
+        />
       </li>
     </ul>
     
@@ -22,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ViewRowOfSquare from "./ViewRowOfSquare.vue";
 
 export default {
@@ -35,6 +34,9 @@ export default {
   components: {
     ViewRowOfSquare
   },
+  computed: {
+    ...mapGetters('data',['getRenderedItems']),
+  },
 }
 </script>
 
@@ -47,11 +49,11 @@ export default {
 
 .item-title {
   font-size: 18px;
-  margin-bottom: 10px;
 }
 
 .item-list {
   width: 100%;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;

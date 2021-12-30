@@ -67,6 +67,31 @@ p {
   margin: 0;
 }
 
+.check {
+  padding-left: 30px;
+}
+
+.check-input {
+  position: absolute;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.check-box {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -30px;
+  border: 1px solid #000;
+  background-image: none;
+}
+
+.check-input:checked + .check-box {
+  background-image: url("./assets/Check.svg");
+  background-position: center center;
+}
+
 </style>
 
 <style scoped>

@@ -36,7 +36,7 @@ export default {
         listId: this.listId,
         itemId: this.itemId,
       }
-      console.log(payload);
+      
       this.decreaseCountOfItem(payload);
     }
   }

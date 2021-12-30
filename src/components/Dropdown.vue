@@ -10,7 +10,7 @@
         }]"
         @click="toggleDropdown"
       >
-        <Icon iconType="arrow" />
+        <div class="dropdown-arrow"></div>
       </div>
       <div class="dropdown-content">
         <div>
@@ -53,7 +53,6 @@
 
 <script>
 import { mapMutations } from "vuex";
-import Icon from "./Icon.vue";
 import ControlItem from "./ControlItem.vue";
 
 export default {
@@ -70,7 +69,6 @@ export default {
     }
   },
   components: {
-    Icon,
     ControlItem
   },
   computed: {
@@ -132,6 +130,12 @@ export default {
   transform: rotate(90deg);
 }
 
+.dropdown-arrow {
+  width: 20px;
+  height: 20px;
+  background-image: url(../assets/Chevron.svg);
+}
+
 .dropdown-content {
   width: 100%;
   margin-left: 30px;
@@ -148,28 +152,5 @@ export default {
 .check-box--some {
   background-image: url("../assets/Point.svg");
 }
-
-/* input[type=checkbox] {
-  display:none;
-}
-
-input[type=checkbox] + label:before {
-  font-family: FontAwesome;
-  display: inline-block;
-}
-
-input[type=checkbox] + label:before {
-  content: "\f096";
-}
-input[type=checkbox] + label:before {
-  letter-spacing: 10px;
-}
-
-input[type=checkbox]:checked + label:before {
-  content: "\f046";
-} */
-/* input[type=checkbox]:checked + label:before {
-  letter-spacing: 5px;
-} */
 
 </style>

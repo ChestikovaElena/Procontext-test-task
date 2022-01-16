@@ -1,4 +1,3 @@
-import Vue from "vue";
 import {
   CHANGE_ITEM_SELECTED,
   CHANGE_ITEM_COUNT,
@@ -7,6 +6,7 @@ import {
   DECREASE_COUNT_OF_ITEM,
 } from "./mutations.js";
 import initialLists from "../assets/lists";
+import { getItemById, getListById } from "../utils/findFunctions.js";
 
 const state = {
   lists: initialLists,
@@ -14,9 +14,7 @@ const state = {
 
 const getters = {
   getRenderedItems: (state) => (listId) => {
-    const currentList = state.lists.findIndex((list) => list.id === listId);
-
-    return state.lists[currentList].items.filter(
+    return getListById(state.lists, listId).items.filter(
       (item) => item.checked && item.count > 0
     );
   },
@@ -24,77 +22,51 @@ const getters = {
 
 const mutations = {
   [CHANGE_ITEM_SELECTED](state, payload) {
-    const currentList = state.lists.findIndex(
-      (list) => list.id === payload.listId
-    );
-    const currentItem = state.lists[currentList].items.findIndex(
-      (value) => value.id == payload.itemId
+    const currentItem = getItemById(
+      state.lists,
+      payload.listId,
+      payload.itemId
     );
 
-    Vue.set(
-      state.lists[currentList].items[currentItem],
-      "checked",
-      !state.lists[currentList].items[currentItem].checked
-    );
+    currentItem.checked = !currentItem.checked;
   },
   [CHANGE_ITEM_COUNT](state, payload) {
-    const currentList = state.lists.findIndex(
-      (list) => list.id === payload.listId
-    );
-    const currentItem = state.lists[currentList].items.findIndex(
-      (value) => value.id == payload.itemId
-    );
-
-    Vue.set(
-      state.lists[currentList].items[currentItem],
-      "count",
-      payload.count
+    const currentItem = getItemById(
+      state.lists,
+      payload.listId,
+      payload.itemId
     );
 
-    if (state.lists[currentList].items[currentItem].count === 0) {
-      Vue.set(state.lists[currentList].items[currentItem], "checked", false);
+    currentItem.count = payload.count;
+    if (currentItem.count === 0) {
+      currentItem.checked = false;
     }
   },
   [CHANGE_ITEM_COLOR](state, payload) {
-    const currentList = state.lists.findIndex(
-      (list) => list.id === payload.listId
-    );
-    const currentItem = state.lists[currentList].items.findIndex(
-      (value) => value.id == payload.itemId
+    const currentItem = getItemById(
+      state.lists,
+      payload.listId,
+      payload.itemId
     );
 
-    Vue.set(
-      state.lists[currentList].items[currentItem],
-      "color",
-      payload.color
-    );
+    currentItem.color = payload.color;
   },
   [SELECT_ALL_ITEMS_IN_LIST](state, payload) {
-    const currentList = state.lists.findIndex(
-      (list) => list.id === payload.listId
-    );
+    const currentList = getListById(state.lists, payload.listId);
 
-    state.lists[currentList].items.forEach((item) =>
-      Vue.set(item, "checked", payload.isAllSelected)
-    );
+    currentList.items.forEach((item) => (item.checked = payload.isAllSelected));
   },
   [DECREASE_COUNT_OF_ITEM](state, payload) {
-    const currentList = state.lists.findIndex(
-      (list) => list.id === payload.listId
+    const currentItem = getItemById(
+      state.lists,
+      payload.listId,
+      payload.itemId
     );
 
-    const currentItem = state.lists[currentList].items.findIndex(
-      (value) => value.id == payload.itemId
-    );
+    currentItem.count = currentItem.count - 1;
 
-    Vue.set(
-      state.lists[currentList].items[currentItem],
-      "count",
-      state.lists[currentList].items[currentItem].count - 1
-    );
-
-    if (state.lists[currentList].items[currentItem].count === 0) {
-      Vue.set(state.lists[currentList].items[currentItem], "checked", false);
+    if (currentItem.count === 0) {
+      currentItem.checked = false;
     }
   },
 };
